@@ -1,0 +1,19 @@
+.migration-note {
+    text-align: right;
+    font-size: 0.75em;
+    font-style: italic;
+    color: #999;
+    margin-top: 2em;
+    padding-top: 0.5em;
+    border-top: 1px solid #eee;
+}
+
+.migration-note a {
+    color: #999;
+    text-decoration: none;
+}
+
+.migration-note a:hover {
+    color: #666;
+    text-decoration: underline;
+}
