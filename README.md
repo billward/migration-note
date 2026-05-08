@@ -36,6 +36,13 @@ Activate from the Plugins screen.
 
 ## Customization
 
+**Wording / language / date format** — visit **Settings → Migration Note** in the WP admin. Two fields:
+
+- **Template** (default: `Migrated from %link%%date%%note%`) — the line that gets rendered. Placeholders: `%source%`, `%url%`, `%link%` (auto-linked source), `%date%` (formatted date phrase), `%note%`.
+- **Date format** (default: ` on %Y-%m-%d`) — how `%date%` is rendered when the post supplies a parseable date. strftime-style codes (`%Y`, `%m`, `%d`, `%B`, `%-d`, etc.); literal text is preserved as-is. Leave blank for verbatim. The entire phrase including any literal prefix collapses out when the post has no date.
+
+Settings are per-site on multisite installs. Defaults reproduce the original "Migrated from … on YYYY-MM-DD" output exactly.
+
 **CSS** — override `.migration-note` (and `.migration-note a`) in your theme's stylesheet. The plugin's stylesheet is only enqueued on pages that actually use the shortcode.
 
 **HTML filter** — hook `migration_note_html` to rewrite the rendered output:
@@ -46,8 +53,6 @@ add_filter('migration_note_html', function ($html, $atts) {
     return $html;
 }, 10, 2);
 ```
-
-**Translation** — strings are loaded under the `migration-note` text domain from the `languages/` directory.
 
 ## License
 

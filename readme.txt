@@ -4,7 +4,7 @@ Tags: migration, attribution, shortcode, content, footer
 Requires at least: 5.0
 Tested up to: 6.9
 Requires PHP: 7.2
-Stable tag: 1.0.0
+Stable tag: 1.1.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -29,8 +29,8 @@ All attributes are optional except `source`. If `source` is omitted, the shortco
 
 = Features =
 
-* Single, focused shortcode — no settings page, no bloat.
-* Translatable (text domain `migration-note`).
+* Single shortcode, no extra fields to fill in.
+* Customizable rendering via **Settings → Migration Note** — change the wording, add or drop "on", reformat dates, translate the footer to your language, all without code or translation files.
 * Stylesheet only loads on pages where the shortcode is actually used.
 * Output is a single class-scoped block (`.migration-note`) so it's easy to restyle in your theme.
 * `migration_note_html` filter lets advanced users override the rendered HTML without forking.
@@ -53,9 +53,13 @@ Yes — override the `.migration-note` CSS class in your theme's stylesheet. For
 
 Yes. The link uses `target="_blank"` together with `rel="noopener noreferrer"` for safety.
 
-= Can I translate the "Migrated from" text? =
+= Can I translate or change the "Migrated from" text? =
 
-Yes. The plugin loads translations from its `languages/` directory using the `migration-note` text domain.
+Yes — go to **Settings → Migration Note** and edit the **Template** field. The template is a single line of text with placeholders (`%source%`, `%link%`, `%date%`, `%note%`); rewrite it in any language or any wording you like. There's no need for translation files.
+
+= How do I change the date format? =
+
+**Settings → Migration Note** → **Date format**. The default is `%Y-%m-%d` with an " on " prefix; change to e.g. `%B %-d, %Y` for "January 5, 2018" or anything else (see the help text below the field for codes). Leave blank to render the date attribute exactly as supplied with no formatting or prefix.
 
 = How do I customize the rendered HTML? =
 
@@ -65,10 +69,19 @@ Hook the `migration_note_html` filter:
 
 == Changelog ==
 
+= 1.1.0 =
+* New: **Settings → Migration Note** page with editable Template and Date format fields. Replaces the previous translation-file approach — admins customize wording directly. Per-site settings on multisite.
+* New: `%link%` template placeholder (auto-wraps the source name in `<a>` when `url` is supplied, falls back to plain text when not).
+* Defaults preserve v1.0.0 output for posts with ISO-formatted (`YYYY-MM-DD`) date attributes.
+* Removed: redundant `load_plugin_textdomain()` call (translations on WordPress.org-hosted plugins auto-load since WP 4.6).
+
 = 1.0.0 =
 * Initial public release.
 
 == Upgrade Notice ==
+
+= 1.1.0 =
+Adds a Settings → Migration Note page so you can edit the rendered text directly. Defaults preserve v1.0.0 output; no action required after upgrading.
 
 = 1.0.0 =
 Initial release.
